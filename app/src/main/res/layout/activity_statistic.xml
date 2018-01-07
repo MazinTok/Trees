@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.mazinaltokhais.trees.StatisticActivity">
+
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+            <com.roughike.swipeselector.SwipeSelector
+                android:id="@+id/swipe_selector"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="left"
+
+                android:layout_margin="5dp"
+                android:layoutDirection="ltr"
+
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:textAlignment="center"
+                app:swipe_descriptionGravity="center"
+                app:swipe_indicatorSize="0dp"
+                app:swipe_leftButtonResource="@drawable/ic_arrow_left"
+                app:swipe_rightButtonResource="@drawable/ic_arrow_right"
+                app:swipe_titleTextAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse" />
+
+            <!--app:swipe_rightButtonResource="@drawable/rightButtonResource"-->
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+
+    <include layout="@layout/content_statistic" />
+
+    <ListView
+        android:id="@+id/StatsticListview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+        android:dividerHeight="1dp" />
+
+</RelativeLayout>
+<!--</android.support.design.widget.CoordinatorLayout>-->
+
+
+<!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--tools:context="com.mazinaltokhais.trees.StatisticActivity">-->

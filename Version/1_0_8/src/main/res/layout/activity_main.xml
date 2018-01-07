@@ -1,0 +1,166 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--map:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"-->
+        <!--android:id="@+id/nestedScrollView">-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/main_map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_weight="0.98"
+            tools:context="com.mazinaltokhais.trees.MainActivity" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/tree_res_card"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="12dp"
+            android:layout_toLeftOf="@+id/add_tree_button"
+            android:elevation="3dp">
+
+            <!--<TextView-->
+                <!--android:id="@+id/trees_count"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical|center_horizontal"-->
+                <!--android:text="TextView" />-->
+            <TextView
+                android:id="@+id/count_area_name_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/mal_text_secondary"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/trees_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_tree"
+                android:paddingRight="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_tree_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+
+            android:layout_gravity="right"
+
+            android:layout_margin="5dp"
+            android:clickable="true"
+            map:backgroundTint="@color/colorPrimaryDark"
+            map:fabSize="normal"
+            map:layout_anchorGravity="right"
+            map:srcCompat="@drawable/ic_add" />
+    </RelativeLayout>
+
+    <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical"-->
+            <!--android:id="@+id/linearLayout">-->
+
+      <!---->
+        <!--</LinearLayout>-->
+
+    <!--</android.support.v4.widget.NestedScrollView>-->
+
+    <!--<fragment-->
+        <!--android:id="@+id/map"-->
+        <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="400dp"-->
+        <!--android:layout_weight="1"-->
+        <!--tools:context="com.mazinaltokhais.trees.MainActivity" />-->
+
+
+    <!--map:layout_anchor="@+id/linearLayout"-->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            map:contentScrim="?attr/colorPrimary"
+            map:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            map:toolbarId="@+id/toolbar">
+
+            <com.roughike.swipeselector.SwipeSelector
+                android:id="@+id/swipe_selector"
+                android:layout_width="204dp"
+                android:layout_height="60dp"
+                android:layout_gravity="left"
+                android:layout_margin="5dp"
+                android:layoutDirection="ltr"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+
+                android:textAlignment="center"
+                app:swipe_descriptionGravity="center"
+
+                app:swipe_indicatorSize="0dp"
+                app:swipe_leftButtonResource="@drawable/ic_arrow_left"
+                app:swipe_titleTextAppearance="@style/UiTestTextView"
+                map:swipe_rightButtonResource="@drawable/ic_arrow_right" />
+
+            <!--app:swipe_rightButtonResource="@drawable/rightButtonResource"-->
+            <nl.dionsegijn.steppertouch.StepperTouch
+                android:id="@+id/stepperTouch"
+                android:layout_width="180dp"
+                android:layout_height="60dp"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:layoutDirection="ltr"
+
+                app:stepperActionsColor="@color/stepper_text_blue"
+                app:stepperActionsDisabledColor="@color/stepper_actions_blue"
+                app:stepperBackgroundColor="@color/stepper_background_blue"
+                app:stepperTextColor="@color/stepper_text_blue"
+                map:stepperTextSize="50sp" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/floatingActionButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="top|left"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:clickable="true"-->
+        <!--android:src="@android:drawable/ic_input_add"-->
+        <!--map:fabSize="mini"-->
+        <!--map:layout_anchor="@+id/nestedScrollView"-->
+        <!--map:layout_anchorGravity="bottom|right" />-->
+</android.support.design.widget.CoordinatorLayout>

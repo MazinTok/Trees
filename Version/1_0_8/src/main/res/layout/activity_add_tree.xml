@@ -1,0 +1,84 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/add_map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.mazinaltokhais.trees.AddTreeActivity" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/tree_location_cv"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_above="@+id/tree_type_cv"
+            android:layout_margin="5dp" >
+
+            <EditText
+                android:id="@+id/editText_campaign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/campaign"
+
+                android:maxLines="1"
+                android:nextFocusDown="@+id/editText_type" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/tree_type_cv"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_above="@+id/btnSignIn"
+            android:layout_margin="5dp">
+
+            <EditText
+                android:id="@+id/editText_type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/tree_type"
+                android:inputType="textPersonName"
+                android:nextFocusDown="@id/btnSignIn" />
+        </android.support.v7.widget.CardView>
+
+        <!--<com.dd.processbutton.FlatButton-->
+            <!--android:id="@+id/submit_tree_btn"-->
+            <!--custom:pb_colorNormal="@android:color/holo_blue_light"-->
+            <!--custom:pb_colorPressed="@android:color/holo_blue_dark"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:text="Flat Button"-->
+            <!--android:textColor="@android:color/white" />-->
+        <com.dd.processbutton.iml.ActionProcessButton
+            android:id="@+id/btnSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="5dp"
+            android:text="@string/azera"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            custom:pb_colorComplete="@color/colorPrimaryDark"
+            custom:pb_colorNormal="@color/green_complete"
+            custom:pb_colorPressed="@color/colorPrimaryDark"
+            custom:pb_colorProgress="@color/purple_progress"
+            custom:pb_textComplete="@string/Success"
+            custom:pb_textProgress="@string/Loading" />
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

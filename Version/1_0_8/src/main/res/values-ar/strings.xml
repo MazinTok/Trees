@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">تشجير</string>
+    <string name="title_activity_main">تشجير</string>
+
+
+    <string name="title_activity_maps">Current Place Details</string>
+    <string name="default_info_title">Default Location</string>
+    <string name="default_info_snippet">No places found, because location permission is disabled.</string>
+    <string name="option_search">بحث</string>
+    <string name="option_about">عن التطبيق</string>
+    <string name="pick_place">Choose a place</string>
+    <string name="title_activity_add_tree">اضافه</string>
+    <string name="city">المدينه</string>
+    <string name="tree_type">نوع الشجرة</string>
+
+
+
+    <!-- ABout Act-->
+    <string name="About_App">لاهمية الغطاء النباتي في حياتنا اليوميه وحاجه المنطقه لمثل هذا المبادرات ودعما منا للحملات التي تدعوا الى المحافظه عليها قمنا بعمل تطبيق لتحفيز الناس وحثهم لزراعه الأشجار وزيادة الغطاء النباتي في مدننا بحيث قسمت الدول الى مناطق وكل منطقه يتم عرض عدد الاشجار المزروعه من الناس في التطبيق ويقوم التطبيق بترتيب المناطق حسب عدد الاشجار كمنافسه بين المناطق التطبيق مجهود شخصي واتمنى من لديه اي اقتراح او لديه الرغبه لعمل التطبيق على الايفون التواصل معي </string>
+
+    <string name="Loading_Complete" />
+    <string name="share_message"> تطبيق تشجير لتحفيز الناس وحثهم لزراعه الأشجار وزيادة الغطاء النباتي في مدننا </string>
+    <string name="sharing_title"> sharing_title</string>
+    <string name="azera">ازرع</string>
+    <string name="Success">تم</string>
+    <string name="Loading">جاري الاضافه</string>
+    <string name="tree_type_txt">نوعها </string>
+    <string name="tree_age_txt">عمرها </string>
+    <string name="tree_day_txt"> يوم</string>
+
+    <string name="twitterUserName">"mazinAltokhais"</string>
+    <string name="webHomePage">http://tashjer.mazinaltokhais.com/</string>
+    <string name="emailAddress">maltokhais@hotmail.com</string>
+    <string name="emailSubject">tashjer App</string>
+    <string name="emailBody">emailBody</string>
+    <string name="app_url">http://tashjer.mazinaltokhais.com</string>
+    <string name="campaign"> اسم الحمله(اختياري)</string>
+    <string name="Turn_on_GPS">الرجاء تفعيل خاصيه تحديد الموقع</string>
+</resources>
