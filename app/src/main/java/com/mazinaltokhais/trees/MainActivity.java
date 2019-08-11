@@ -65,9 +65,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-//    firebase analytics
+    // Firebase analytics
     private FirebaseAnalytics mFirebaseAnalytics;
-
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private GoogleMap mMap;
@@ -159,14 +158,31 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        swipeSelector.setOnItemSelectedListener(new OnSwipeItemSelectedListener() {
+            @Override
+            public void onItemSelected(SwipeItem item) {
+                if (globalVariable.getmLastKnownLocation()  == null)//mTree == null)
+                {
+                    updateLocationUI();
+                    getDeviceLocation();
+                }
+                else {
 
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom( new LatLng(globalVariable.getmLastKnownLocation().getLatitude(),
+                            globalVariable.getmLastKnownLocation().getLongitude()), DEFAULT_ZOOM));
+
+                }
+                Log.d("snapshot","swipeSelector--");
+                getTreesFromFireBase();
+            }
+        });
     }
 
     private void  InitalStepperTouch()
     {
         stepperTouch.stepper.setMin(2017);
         stepperTouch.stepper.setMax(2100);
-        stepperTouch.stepper.setValue(2017);
+        stepperTouch.stepper.setValue(Calendar.getInstance().get(Calendar.YEAR));
 
         stepperTouch.stepper.addStepCallback(new OnStepCallback() {
             @Override
@@ -177,10 +193,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     getDeviceLocation();
                 }
                 if (globalVariable.getmLastKnownLocation() != null && mTree.getmCountryName() != null) {
-//                    getTreesFromFireBase();
-//                    RankingList();
                     getFireBaseCountries( mTree);
                 }
+                Log.d("snapshot_stepper", "-");
             }
 
 
@@ -465,31 +480,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void setSwipeSelector(SwipeItem[] swipeItems, int SwipeAreaIndex)
     {
         swipeSelector.setItems(swipeItems);
-        if (swipeItems.length>0) {
-            swipeSelector.selectItemWithValue(0);
-            swipeSelector.selectItemWithValue(SwipeAreaIndex);
+        if (swipeItems.length > 0) {
+           swipeSelector.selectItemWithValue(0);
+//            swipeSelector.selectItemWithValue(swipeItems[SwipeAreaIndex].value);
+            swipeSelector.selectItemAt(SwipeAreaIndex);
 
-            getTreesFromFireBase();
+           // getTreesFromFireBase();
         }
         RankingList();
-        swipeSelector.setOnItemSelectedListener(new OnSwipeItemSelectedListener() {
-            @Override
-            public void onItemSelected(SwipeItem item) {
-                if (globalVariable.getmLastKnownLocation()  == null)//mTree == null)
-                {
-                    updateLocationUI();
-                    getDeviceLocation();
-                }
-                else {
 
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom( new LatLng(globalVariable.getmLastKnownLocation().getLatitude(),
-                            globalVariable.getmLastKnownLocation().getLongitude()), DEFAULT_ZOOM));
-
-                }
-
-                getTreesFromFireBase();
-            }
-        });
     }
 
     private void getTreesFromFireBase()
@@ -497,7 +496,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        if (swipeSelector.isActivated
 
             if (swipeSelector.getSelectedItem()!= null) {
-            String whereQuiry = stepperTouch.stepper.getValue() + "_" + swipeSelector.getSelectedItem().title.toString();
+            String whereQuiry = stepperTouch.stepper.getValue() + "_" + swipeSelector.getSelectedItem().title;
             Query myTopPostsQuery = mDatabase.child("Trees").orderByChild("mYear_Area").equalTo(whereQuiry);
 
             Log.d("trees count ", swipeSelector.getSelectedItem().value.toString());
@@ -526,11 +525,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     }
                     String mYear = String.valueOf(stepperTouch.stepper.getValue());
-                    String mArea = swipeSelector.getSelectedItem().title.toString();
+                    String mArea = swipeSelector.getSelectedItem().title;
                     mTreesCountTxt.setText(String.valueOf(snapshot.getChildrenCount()));
                     mTreesAreaCountTxt.setText(mArea);
-
-                    mDatabase.child("TreeCountByArea").child(mTree.getmCountryName()).child(mYear).child(mArea).setValue(snapshot.getChildrenCount());
+                    Log.d("snapshot Count()",String.valueOf(snapshot.getChildrenCount()) +mArea + mYear);
+                   // mDatabase.child("TreeCountByArea").child(mTree.getmCountryName()).child(mYear).child(mArea).setValue(snapshot.getChildrenCount());
                 }
 
                 @Override
@@ -591,10 +590,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 int rank=(int) snapshot.getChildrenCount();
                 int toatalRank=rank;
                 int toatalTrees=0;
+                String area ;//= String.valueOf(child.getKey());//child("type").getValue(String.class);
+                String count ;//= String.valueOf(child.getValue(long.class));//child("type").getValue(String.class);
+
                 for (DataSnapshot child : snapshot.getChildren()) {
 
-                    String area = String.valueOf(child.getKey());//child("type").getValue(String.class);
-                    String count = String.valueOf(child.getValue(long.class));//child("type").getValue(String.class);
+                     area = String.valueOf(child.getKey());//child("type").getValue(String.class);
+                     count = String.valueOf(child.getValue(long.class));//child("type").getValue(String.class);
 
                     HashMap map = new HashMap();
                     map.put("rank", String.valueOf(rank));
@@ -635,7 +637,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                lista.clear();
             }
         });
 

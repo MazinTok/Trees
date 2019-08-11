@@ -123,15 +123,16 @@
                 android:layout_gravity="left"
 
                 android:layout_margin="5dp"
-                android:layoutDirection="ltr"
 
+                android:layoutDirection="ltr"
                 android:scrollbarAlwaysDrawHorizontalTrack="false"
                 android:textAlignment="center"
                 app:swipe_descriptionGravity="center"
                 app:swipe_indicatorSize="0dp"
                 app:swipe_leftButtonResource="@drawable/ic_arrow_left"
+                app:swipe_rightButtonResource="@drawable/ic_arrow_right"
                 app:swipe_titleTextAppearance="@style/UiTestTextView"
-                app:swipe_rightButtonResource="@drawable/ic_arrow_right" />
+                 />
 
             <!--app:swipe_rightButtonResource="@drawable/rightButtonResource"-->
             <nl.dionsegijn.steppertouch.StepperTouch

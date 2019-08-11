@@ -34,8 +34,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -63,9 +67,9 @@ public class AddTreeActivity extends AppCompatActivity implements OnMapReadyCall
 
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
-   // private Location mLastKnownLocation;
+    // private Location mLastKnownLocation;
 
-    MyApplication globalVariable ;
+    MyApplication globalVariable;
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
@@ -76,9 +80,8 @@ public class AddTreeActivity extends AppCompatActivity implements OnMapReadyCall
     EditText TypeEdt;
     private Tree mTree;
 
-     ProgressGenerator progressGenerator;
-     ActionProcessButton btnSignIn;
-
+    ProgressGenerator progressGenerator;
+    ActionProcessButton btnSignIn;
 
 
     @Override
@@ -113,20 +116,18 @@ public class AddTreeActivity extends AppCompatActivity implements OnMapReadyCall
                 .build();
         mGoogleApiClient2.connect();
 
-            btnSignIn.setMode(ActionProcessButton.Mode.ENDLESS);
+        btnSignIn.setMode(ActionProcessButton.Mode.ENDLESS);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (globalVariable.getmLastKnownLocation()!= null)
-                {
+                if (globalVariable.getmLastKnownLocation() != null) {
                     progressGenerator.start(btnSignIn);
                     btnSignIn.setEnabled(false);
-                    addToFireBace( mTree);
-                }
-                else {
-                    Toast.makeText(AddTreeActivity.this,getString(R.string.Turn_on_GPS),
+                    addToFireBace(mTree);
+                } else {
+                    Toast.makeText(AddTreeActivity.this, getString(R.string.Turn_on_GPS),
                             Toast.LENGTH_SHORT).show();
                 }
 
@@ -137,16 +138,16 @@ public class AddTreeActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public void onComplete() {
-      finish();
+        finish();
     }
 
     private void IntialView() {
 
         CampaignEdt = (EditText) findViewById(R.id.editText_campaign);
         TypeEdt = (EditText) findViewById(R.id.editText_type);
-         mTree =  Tree.createTree();
-         progressGenerator = new ProgressGenerator(this);
-         btnSignIn = (ActionProcessButton) findViewById(R.id.btnSignIn);
+        mTree = Tree.createTree();
+        progressGenerator = new ProgressGenerator(this);
+        btnSignIn = (ActionProcessButton) findViewById(R.id.btnSignIn);
 
 
     }
@@ -158,6 +159,7 @@ public class AddTreeActivity extends AppCompatActivity implements OnMapReadyCall
             mGoogleApiClient2.connect();
         }
     }
+
     /**
      * Saves the state of the map when the activity is paused.
      */
@@ -221,19 +223,18 @@ public class AddTreeActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-         if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
+        } else if (item.getItemId() == R.id.option_about) {
+            AboutActivity.launch(AddTreeActivity.this);
         }
-         else if( item.getItemId() == R.id.option_about)
-         {
-             AboutActivity.launch(AddTreeActivity.this);
-         }
 
         return true;
     }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item= menu.findItem(R.id.option_search);
+        MenuItem item = menu.findItem(R.id.option_search);
         item.setVisible(false);
         super.onPrepareOptionsMenu(menu);
         return true;
@@ -318,9 +319,9 @@ public class AddTreeActivity extends AppCompatActivity implements OnMapReadyCall
         if (mLocationPermissionGranted) {
 
             if (LocationServices.FusedLocationApi.
-                    getLastLocation(mGoogleApiClient2)!= null)
-            globalVariable.setmLastKnownLocation( LocationServices.FusedLocationApi.
-                    getLastLocation(mGoogleApiClient2));
+                    getLastLocation(mGoogleApiClient2) != null)
+                globalVariable.setmLastKnownLocation(LocationServices.FusedLocationApi.
+                        getLastLocation(mGoogleApiClient2));
         }
 
         // Set the map's camera position to the current location of the device.
@@ -337,9 +338,9 @@ public class AddTreeActivity extends AppCompatActivity implements OnMapReadyCall
         }
 
         List<Address> addresses = null;
-        if (globalVariable.getmLastKnownLocation()!= null) {
-            LatLng pos = new LatLng(globalVariable.getmLastKnownLocation().getLatitude(),globalVariable.getmLastKnownLocation().getLongitude());
-            addresses = getAddress( pos);
+        if (globalVariable.getmLastKnownLocation() != null) {
+            LatLng pos = new LatLng(globalVariable.getmLastKnownLocation().getLatitude(), globalVariable.getmLastKnownLocation().getLongitude());
+            addresses = getAddress(pos);
         }
 
         if (addresses != null && addresses.size() > 0) {
@@ -400,24 +401,24 @@ public class AddTreeActivity extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
-    private void addMarker(Tree mTree){
+    private void addMarker(Tree mTree) {
 
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_tree);
-       // CityEdt.setText(mTree.getmCity());
+        // CityEdt.setText(mTree.getmCity());
         mMap.addMarker(new MarkerOptions()
                 .position(mTree.getmLatLng())
                 .icon(icon));
 //.title(getString(R.string.default_info_title))
 
     }
-    private  List<Address> getAddress(LatLng pos)
-    {
+
+    private List<Address> getAddress(LatLng pos) {
 
         Geocoder gcd = new Geocoder(this, Locale.ENGLISH);
         List<Address> addresses = null;
         try {
-            if (globalVariable.getmLastKnownLocation()!= null) {
-                addresses = gcd.getFromLocation(pos.latitude,pos.longitude, 1);
+            if (globalVariable.getmLastKnownLocation() != null) {
+                addresses = gcd.getFromLocation(pos.latitude, pos.longitude, 1);
                 String locality = addresses.get(0).getLocality();
                 String AdminArea = addresses.get(0).getAdminArea();
                 String CountryName = addresses.get(0).getCountryName();
@@ -427,13 +428,13 @@ public class AddTreeActivity extends AppCompatActivity implements OnMapReadyCall
                 mTree.setmAdminArea(AdminArea);
                 mTree.setmCountryName(CountryName);
                 mTree.setmYear(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
-                mTree.setmYear_Area(String.valueOf(Calendar.getInstance().get(Calendar.YEAR))+"_"+AdminArea);
+                mTree.setmYear_Area(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)) + "_" + AdminArea);
 
                 String day = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-                String Month = String.valueOf(Calendar.getInstance().get(Calendar.MONTH)+1);
+                String Month = String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1);
                 String Year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 
-                mTree.setDate(day +"/"+Month+"/"+ Year);
+                mTree.setDate(day + "/" + Month + "/" + Year);
 
             }
         } catch (IOException e) {
@@ -443,29 +444,59 @@ public class AddTreeActivity extends AppCompatActivity implements OnMapReadyCall
         return addresses;
     }
 
-    private void addToFireBace(Tree mTree)
-    {
+    private void addToFireBace(Tree mTree) {
 
-         DatabaseReference mDatabase;
+        DatabaseReference mDatabase;
 // ...
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        if (TypeEdt.getText()!= null)
-        {
+        if (TypeEdt.getText() != null) {
             mTree.setType(TypeEdt.getText().toString());
         }
-        if (CampaignEdt.getText()!= null)
-        {
+        if (CampaignEdt.getText() != null) {
             mTree.setmCampaignName(CampaignEdt.getText().toString());
         }
         String id = getTreeId();
         mDatabase.child("Country").child(mTree.getmCountryName()).child(mTree.getmAdminArea()).setValue(mTree.getmAdminArea());
         mDatabase.child("Trees").child(id).setValue(mTree);
+        getTreesFromFireBase();
     }
-    private String getTreeId()
-    {
-        long time= System.currentTimeMillis();
+
+    private String getTreeId() {
+        long time = System.currentTimeMillis();
         return String.valueOf(time);
     }
+
+    private void getTreesFromFireBase() {
+//        if (swipeSelector.isActivated
+
+        final DatabaseReference mDatabase;
+// ...
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        //mDatabase.child("TreeCountByArea").child(mTree.getmCountryName()).child(mTree.getmYear()).child(mTree.getmAdminArea()).setValue(snapshot.getChildrenCount());
+        //if (swipeSelector.getSelectedItem()!= null) {
+        // String whereQuiry = stepperTouch.stepper.getValue() + "_" + swipeSelector.getSelectedItem().title;
+        Query myTopPostsQuery = mDatabase.child("TreeCountByArea").child(mTree.getmCountryName()).child(mTree.getmYear()).child(mTree.getmAdminArea());
+
+        //  Log.d("trees count ", swipeSelector.getSelectedItem().value.toString());
+
+        myTopPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                int mTreeCount = snapshot.getValue(Integer.class);
+                int temp = mTreeCount + 1;
+
+                mDatabase.child("TreeCountByArea").child(mTree.getmCountryName()).child(mTree.getmYear()).child(mTree.getmAdminArea()).setValue(temp);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
+}
 

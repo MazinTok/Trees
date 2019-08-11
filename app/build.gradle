@@ -1,14 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.mazinaltokhais.trees"
         minSdkVersion 21
-        targetSdkVersion 25
-        versionCode 12
-        versionName "1.0.12"
+        targetSdkVersion 28
+        versionCode 13
+        versionName "1.0.13"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -27,21 +26,21 @@ dependencies {
 
 
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.google.android.gms:play-services-maps:11.0.2'
-    compile 'com.google.android.gms:play-services-location:11.0.2'
-    compile 'com.google.android.gms:play-services-places:11.0.2'
+    compile 'com.android.support:appcompat-v7:28.0.0'
+    compile 'com.google.android.gms:play-services-maps:17.0.0'
+    compile 'com.google.android.gms:play-services-location:17.0.0'
+    compile 'com.google.android.gms:play-services-places:17.0.0'
     compile 'com.github.DanielMartinus:Stepper-Touch:0.6'
     compile 'com.roughike:swipe-selector:1.0.6'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:design:28.0.0'
+    compile 'com.android.support:cardview-v7:28.0.0'
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
     compile 'com.github.eggheadgames:android-about-box:1.2.2'
-    compile 'com.google.firebase:firebase-database:11.0.2'
+    compile 'com.google.firebase:firebase-database:18.0.1'
     compile 'com.orhanobut:dialogplus:1.11@aar'
-    compile 'com.google.firebase:firebase-core:11.0.2'
-    compile 'com.google.firebase:firebase-messaging:11.0.2'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta3'
+    compile 'com.google.firebase:firebase-core:17.0.1'
+    compile 'com.google.firebase:firebase-messaging:19.0.1'
+    compile 'com.android.support.constraint:constraint-layout:2.0.0-beta2'
     testCompile 'junit:junit:4.12'
 }
 
